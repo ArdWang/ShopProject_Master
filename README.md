@@ -6,27 +6,9 @@
 <br>
 数据库 
 ```
-/*
-SQLyog Ultimate v12.09 (64 bit)
-MySQL - 5.7.21-log : Database - shop_db
-*********************************************************************
-*/
 
-
-/*!40101 SET NAMES utf8 */;
-
-/*!40101 SET SQL_MODE=''*/;
-
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`shop_db` /*!40100 DEFAULT CHARACTER SET utf8 */;
-
+CREATE DATABASE 
 USE `shop_db`;
-
-/*Table structure for table `cartgoods_tb` */
-
 DROP TABLE IF EXISTS `cartgoods_tb`;
 
 CREATE TABLE `cartgoods_tb` (
@@ -143,7 +125,7 @@ CREATE TABLE `message_tb` (
 
 /*Data for the table `message_tb` */
 
-insert  into `message_tb`(`msgid`,`userid`,`msgtype`,`msgtitle`,`msgcon`,`msgimg`,`msgtime`,`msgread`) values (42,1,1,'订单待支付','订单编号为81已经成功下单，等待你的支付','https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1524634520520&di=d2f91c9eb61eed84c962f78a9caf85d0&imgtype=0&src=http%3A%2F%2Fwww.qqzhi.com%2Fuploadpic%2F2015-01-27%2F121838355.jpg','2018-04-29 12:41:52',0),(43,1,0,'用户登录成功','我的天空a你已经成功登录','http://p6yij445k.bkt.clouddn.com/icon_20180428223813','2018-04-29 14:21:51',0),(44,1,0,'用户登录成功','我的天空a你已经成功登录','http://p6yij445k.bkt.clouddn.com/icon_20180428223813','2018-04-30 11:22:55',0),(45,1,0,'用户登录成功','我的天空a你已经成功登录','http://p6yij445k.bkt.clouddn.com/icon_20180428223813','2018-04-30 11:24:35',0),(46,1,0,'用户登录成功','我的天空a你已经成功登录','http://p6yij445k.bkt.clouddn.com/icon_20180428223813','2018-04-30 11:34:01',0),(47,1,0,'用户登录成功','我的天空a你已经成功登录','http://p6yij445k.bkt.clouddn.com/icon_20180428223813','2018-04-30 11:58:54',0),(48,1,0,'用户登录成功','我的天空a你已经成功登录','http://p6yij445k.bkt.clouddn.com/icon_20180428223813','2018-04-30 14:25:17',0),(49,1,0,'用户登录成功','我的天空a你已经成功登录','http://p6yij445k.bkt.clouddn.com/icon_20180428223813','2018-04-30 14:25:50',0),(50,1,0,'用户登录成功','我的天空a你已经成功登录','http://p6yij445k.bkt.clouddn.com/icon_20180428223813','2018-04-30 14:27:20',1),(51,1,1,'订单待支付','订单编号为83已经成功下单，等待你的支付','https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1524634520520&di=d2f91c9eb61eed84c962f78a9caf85d0&imgtype=0&src=http%3A%2F%2Fwww.qqzhi.com%2Fuploadpic%2F2015-01-27%2F121838355.jpg','2018-04-30 14:29:02',0),(52,1,2,'订单购买成功','订单编号为83订单已经付款。请你等待收货','https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1524634520520&di=d2f91c9eb61eed84c962f78a9caf85d0&imgtype=0&src=http%3A%2F%2Fwww.qqzhi.com%2Fuploadpic%2F2015-01-27%2F121838355.jpg','2018-04-30 14:32:53',0),(53,1,0,'用户登录成功','我的天空a你已经成功登录','http://p6yij445k.bkt.clouddn.com/icon_20180428223813','2018-04-30 14:35:21',0),(54,1,4,'订单取消成功','订单编号为82订单已经成功取消','https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1524634520520&di=d2f91c9eb61eed84c962f78a9caf85d0&imgtype=0&src=http%3A%2F%2Fwww.qqzhi.com%2Fuploadpic%2F2015-01-27%2F121838355.jpg','2018-04-30 14:36:31',0),(55,1,3,'订单收货成功','订单编号为83订单已经成功收货。感谢你的购买','https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1524634520520&di=d2f91c9eb61eed84c962f78a9caf85d0&imgtype=0&src=http%3A%2F%2Fwww.qqzhi.com%2Fuploadpic%2F2015-01-27%2F121838355.jpg','2018-04-30 14:36:42',0),(56,1,0,'用户登录成功','我的天空a你已经成功登录','http://p6yij445k.bkt.clouddn.com/icon_20180428223813','2018-04-30 14:38:42',0),(57,1,0,'用户登录成功','我的天空a你已经成功登录','http://p6yij445k.bkt.clouddn.com/icon_20180428223813','2018-04-30 14:41:24',0),(58,1,0,'用户登录成功','我的天空a你已经成功登录','http://p6yij445k.bkt.clouddn.com/icon_20180428223813','2018-04-30 14:46:25',0),(59,1,1,'订单待支付','订单编号为84已经成功下单，等待你的支付','https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1524634520520&di=d2f91c9eb61eed84c962f78a9caf85d0&imgtype=0&src=http%3A%2F%2Fwww.qqzhi.com%2Fuploadpic%2F2015-01-27%2F121838355.jpg','2018-04-30 14:47:36',0),(60,1,1,'订单待支付','订单编号为85已经成功下单，等待你的支付','https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1524634520520&di=d2f91c9eb61eed84c962f78a9caf85d0&imgtype=0&src=http%3A%2F%2Fwww.qqzhi.com%2Fuploadpic%2F2015-01-27%2F121838355.jpg','2018-04-30 14:51:33',0),(61,1,1,'订单待支付','订单编号为86已经成功下单，等待你的支付','https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1524634520520&di=d2f91c9eb61eed84c962f78a9caf85d0&imgtype=0&src=http%3A%2F%2Fwww.qqzhi.com%2Fuploadpic%2F2015-01-27%2F121838355.jpg','2018-04-30 14:58:11',0),(62,1,0,'用户登录成功','我的天空a你已经成功登录','http://p6yij445k.bkt.clouddn.com/icon_20180428223813','2018-04-30 15:02:12',0),(63,1,1,'订单待支付','订单编号为88已经成功下单，等待你的支付','https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1524634520520&di=d2f91c9eb61eed84c962f78a9caf85d0&imgtype=0&src=http%3A%2F%2Fwww.qqzhi.com%2Fuploadpic%2F2015-01-27%2F121838355.jpg','2018-04-30 15:02:49',0),(64,1,1,'订单待支付','订单编号为89已经成功下单，等待你的支付','https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1524634520520&di=d2f91c9eb61eed84c962f78a9caf85d0&imgtype=0&src=http%3A%2F%2Fwww.qqzhi.com%2Fuploadpic%2F2015-01-27%2F121838355.jpg','2018-04-30 15:04:03',0),(65,1,2,'订单购买成功','订单编号为89订单已经付款。请你等待收货','https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1524634520520&di=d2f91c9eb61eed84c962f78a9caf85d0&imgtype=0&src=http%3A%2F%2Fwww.qqzhi.com%2Fuploadpic%2F2015-01-27%2F121838355.jpg','2018-04-30 15:04:38',0),(66,1,1,'订单待支付','订单编号为90已经成功下单，等待你的支付','https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1524634520520&di=d2f91c9eb61eed84c962f78a9caf85d0&imgtype=0&src=http%3A%2F%2Fwww.qqzhi.com%2Fuploadpic%2F2015-01-27%2F121838355.jpg','2018-05-01 11:27:15',0),(67,1,2,'订单购买成功','订单编号为90订单已经付款。请你等待收货','https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1524634520520&di=d2f91c9eb61eed84c962f78a9caf85d0&imgtype=0&src=http%3A%2F%2Fwww.qqzhi.com%2Fuploadpic%2F2015-01-27%2F121838355.jpg','2018-05-01 11:30:51',0);
+insert  into `message_tb`(`msgid`,`userid`,`msgtype`,`msgtitle`,`msgcon`,`msgimg`,`msgtime`,`msgread`) values (42,1,1,'订单待支付','订单编号为81已经成功下单，等待你的支付','https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1524634520520&di=d2f91c9eb61eed84c962f78a9caf85d0&imgtype=0&src=http%3A%2F%2Fwww.qqzhi.com%2Fuploadpic%2F2015-01-27%2F121838355.jpg','2018-04-29 12:41:52',0),(43,1,0,'用户登录成功','我的天空a你已经成功登录','http://p6yij445k.bkt.clouddn.com/icon_20180428223813','2018-04-29 14:21:51',0),(44,1,0,'用户登录成功','我的天空a你已经成功登录','http://p6yij445k.bkt.clouddn.com/icon_20180428223813','2018-04-30 11:22:55',0),(45,1,0,'用户登录成功','我的天空a你已经成功登录','http://p6yij445k.bkt.clouddn.com/icon_20180428223813','2018-04-30 11:24:35',0),(46,1,0,'用户登录成功','我的天空a你已经成功登录','http://p6yij445k.bkt.clouddn.com/icon_20180428223813','2018-04-30 11:34:01',0),(47,1,0,'用户登录成功','我的天空a你已经成功登录','http://p6yij445k.bkt.clouddn.com/icon_20180428223813','2018-04-30 11:58:54',0),(48,1,0,'用户登录成功','我的天空a你已经成功登录','http://p6yij445k.bkt.clouddn.com/icon_20180428223813','2018-04-30 14:25:17',0),(49,1,0,'用户登录成功','我的天空a你已经成功登录','http://p6yij445k.bkt.clouddn.com/icon_20180428223813','2018-04-30 14:25:50',0),(50,1,0,'用户登录成功','我的天空a你已经成功登录','http://p6yij445k.bkt.clouddn.com/icon_20180428223813','2018-04-30 14:27:20',1),(51,1,1,'订单待支付','订单编号为83已经成功下单，等待你的支付','https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1524634520520&di=d2f91c9eb61eed84c962f78a9caf85d0&imgtype=0&src=http%3A%2F%2Fwww.qqzhi.com%2Fuploadpic%2F2015-01-27%2F121838355.jpg','2018-04-30 14:29:02',0),(52,1,2,'订单购买成功','订单编号为83订单已经付款。请你等待收货','https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1524634520520&di=d2f91c9eb61eed84c962f78a9caf85d0&imgtype=0&src=http%3A%2F%2Fwww.qqzhi.com%2Fuploadpic%2F2015-01-27%2F121838355.jpg','2018-04-30 14:32:53',0),(53,1,0,'用户登录成功','我的天空a你已经成功登录','http://p6yij445k.bkt.clouddn.com/icon_20180428223813','2018-04-30 14:35:21',0),(54,1,4,'订单取消成功','订单编号为82订单已经成功取消','https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1524634520520&di=d2f91c9eb61eed84c962f78a9caf85d0&imgtype=0&src=http%3A%2F%2Fwww.qqzhi.com%2Fuploadpic%2F2015-01-27%2F121838355.jpg','2018-04-30 14:36:31',0),(55,1,3,'订单收货成功','订单编号为83订单已经成功收货。感谢你的购买','https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1524634520520&di=d2f91c9eb61eed84c962f78a9caf85d0&imgtype=0&src=http%3A%2F%2Fwww.qqzhi.com%2Fuploadpic%2F2015-01-27%2F121838355.jpg','2018-04-30 14:36:42',0),(56,1,0,'用户登录成功','我的天空a你已经成功登录','http://p6yij445k.bkt.clouddn.com/icon_20180428223813','2018-04-30 14:38:42',0),(57,1,0,'用户登录成功','我的天空a你已经成功登录','http://p6yij445k.bkt.clouddn.com/icon_20180428223813','2018-04-30 14:41:24',0),(58,1,0,'用户登录成功','我的天空a你已经成功登录','http://p6yij445k.bkt.clouddn.com/icon_20180428223813','2018-04-30 14:46:25',0);
 
 /*Table structure for table `ordergoods_tb` */
 
@@ -225,11 +207,6 @@ CREATE TABLE `user_tb` (
 /*Data for the table `user_tb` */
 
 insert  into `user_tb`(`userid`,`username`,`password`,`pushid`,`userimg`,`age`,`sex`,`phone`,`email`,`sign`,`note`,`admin`) values (1,'我的天空a','123','1a0018970a8b42fe125','http://p6yij445k.bkt.clouddn.com/icon_20180428223813',18,0,'123456','123@123.com','我的天空飞吧','none',0);
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 ```
  
