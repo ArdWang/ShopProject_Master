@@ -1,11 +1,16 @@
 package com.shop.utils.pay;
 
+import com.shop.utils.push.PushSender;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.security.KeyFactory;
 import java.security.PrivateKey;
 import java.security.Signature;
 import java.security.spec.PKCS8EncodedKeySpec;
 
 public class SignUtils {
+    private static final Logger logger = LoggerFactory.getLogger(SignUtils.class);
     private static final String ALGORITHM = "RSA";
     private static final String SIGN_ALGORITHMS = "SHA1WithRSA";
     private static final String SIGN_SHA256RSA_ALGORITHMS = "SHA256WithRSA";
@@ -32,6 +37,7 @@ public class SignUtils {
 
             return Base64.encode(signed);
         } catch (Exception e) {
+            logger.error("Error",e);
             e.printStackTrace();
         }
 

@@ -8,6 +8,8 @@ import com.shop.model.category.CateGoryp;
 import com.shop.model.category.CateGorys;
 import com.shop.service.CateGoryService;
 import com.shop.utils.util.StatusCode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,13 +25,14 @@ public class CateGoryController extends BaseController{
     @Autowired
     private CateGoryService cateGoryService;
 
+    private static final Logger logger = LoggerFactory.getLogger(CateGoryController.class);
+
     @RequestMapping(value = {"/getCateGoryp"}, method = {RequestMethod.POST})
     @ResponseBody
     public BaseResp<List<CateGoryp>> getCatepGory(){
         BaseResp resp = new BaseResp();
         try{
             List<CateGoryp> cateGorypList = cateGoryService.getGatepGory();
-
             if((cateGorypList==null)||cateGorypList.size()==0){
                 resp.setCode(StatusCode.CODE_ERROR);
                 resp.setMessage("获取列表失败");
@@ -42,6 +45,7 @@ public class CateGoryController extends BaseController{
             return resp;
 
         }catch (Exception e){
+            logger.error("Error",e);
             e.printStackTrace();
             resp.setCode(StatusCode.CODE_SERVER_ERROR);
             resp.setMessage("服务器错误");
@@ -70,6 +74,7 @@ public class CateGoryController extends BaseController{
             return resp;
 
         }catch (Exception e){
+            logger.error("Error",e);
             e.printStackTrace();
             resp.setCode(StatusCode.CODE_SERVER_ERROR);
             resp.setMessage("服务器错误");

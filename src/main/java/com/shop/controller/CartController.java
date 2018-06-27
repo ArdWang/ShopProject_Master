@@ -15,6 +15,8 @@ import com.shop.service.CartService;
 import com.shop.service.OrderService;
 import com.shop.service.ShipService;
 import com.shop.utils.util.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,6 +42,8 @@ public class CartController extends BaseController{
     @Autowired
     private ShipService shipService;
 
+    private static final Logger logger = LoggerFactory.getLogger(CartController.class);
+
     /**
      * 添加购物车的商品
      */
@@ -49,7 +53,14 @@ public class CartController extends BaseController{
         BaseResp resp = new BaseResp();
         try{
             //得到UserId
-            int userId = Integer.parseInt(request.getHeader("token"));
+            String userData = request.getHeader("token");
+            if(userData.isEmpty()){
+                resp.setCode(StatusCode.CODE_ERROR);
+                resp.setMessage("用户token不能为空");
+                return resp;
+            }
+            int userId = Integer.parseInt(userData);
+
             int goodsId = req.getGoodsid();
             String goodsDesc = req.getGoodsdesc();
             String goodsIcon = req.getGoodsicon();
@@ -80,6 +91,7 @@ public class CartController extends BaseController{
             return resp;
 
         }catch (Exception e){
+            logger.error("Error",e);
             e.printStackTrace();
             resp.setCode(StatusCode.CODE_SERVER_ERROR);
             resp.setMessage("服务器错误");
@@ -97,7 +109,13 @@ public class CartController extends BaseController{
         BaseResp resp = new BaseResp();
         try {
             //得到UserId
-            int userId = Integer.parseInt(request.getHeader("token"));
+            String userData = request.getHeader("token");
+            if(userData.isEmpty()){
+                resp.setCode(StatusCode.CODE_ERROR);
+                resp.setMessage("用户token不能为空");
+                return resp;
+            }
+            int userId = Integer.parseInt(userData);
             //得到传过来的购物车商品要删除的id
             List<Integer> goodsCartIds = req.getCartIdList();
 
@@ -114,6 +132,7 @@ public class CartController extends BaseController{
             return resp;
 
         }catch (Exception e){
+            logger.error("Error",e);
             e.printStackTrace();
             resp.setCode(StatusCode.CODE_SERVER_ERROR);
             resp.setMessage("服务器错误");
@@ -129,7 +148,14 @@ public class CartController extends BaseController{
     public CartResp getCartGoods(){
         CartResp resp = new CartResp();
         try {
-            int userId = Integer.parseInt(request.getHeader("token"));
+            String userData = request.getHeader("token");
+            if(userData.isEmpty()){
+                resp.setCode(StatusCode.CODE_ERROR);
+                resp.setMessage("用户token不能为空");
+                return resp;
+            }
+            int userId = Integer.parseInt(userData);
+
             if(userId==0){
                 resp.setCode(StatusCode.CODE_ERROR);
                 resp.setMessage("你还没有登录");
@@ -152,6 +178,7 @@ public class CartController extends BaseController{
             return resp;
 
         }catch (Exception e){
+            logger.error("Error",e);
             e.printStackTrace();
             resp.setCode(StatusCode.CODE_SERVER_ERROR);
             resp.setMessage("服务器错误");
@@ -240,6 +267,7 @@ public class CartController extends BaseController{
             return resp;
 
         }catch (Exception e){
+            logger.error("Error",e);
             e.printStackTrace();
             resp.setCode(StatusCode.CODE_SERVER_ERROR);
             resp.setMessage("服务器错误");

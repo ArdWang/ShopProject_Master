@@ -1,6 +1,7 @@
 package com.shop.controller;
 
 
+import com.shop.ShopApplication;
 import com.shop.domain.user.*;
 import com.shop.model.msg.MsgInfo;
 import com.shop.model.user.User;
@@ -8,8 +9,11 @@ import com.shop.service.MsgService;
 import com.shop.service.UserService;
 import com.shop.domain.BaseResp;
 import com.shop.utils.push.PushSender;
+import com.shop.utils.util.MD5Util;
 import com.shop.utils.util.StatusCode;
 import com.sun.org.glassfish.external.statistics.annotations.Reset;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,6 +35,8 @@ public class UserController extends BaseController{
     @Autowired
     private MsgService msgService;
 
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+
     /**
      * 得到用户信息
      */
@@ -50,9 +56,10 @@ public class UserController extends BaseController{
                 return resp;
             }
 
+            String md5Pwd = MD5Util.MD5EncodeUtf8(passWord);
             Map<Object, Object> params = new HashMap<>();
             params.put("phone", phone);
-            params.put("password", passWord);
+            params.put("password", md5Pwd);
 
             User user = userService.getUser(params);
 
@@ -81,6 +88,7 @@ public class UserController extends BaseController{
             return resp;
 
         }catch (Exception e){
+            logger.error("User Error:",e);
             e.printStackTrace();
             resp.setCode(StatusCode.CODE_SERVER_ERROR);
             resp.setMessage("服务器错误");
@@ -117,10 +125,11 @@ public class UserController extends BaseController{
                 return resp;
             }
 
+            String md5Pwd = MD5Util.MD5EncodeUtf8(password);
             //添加的时候用户名一样的添加
             Map<Object, Object> params = new HashMap<>();
             params.put("phone", moblie);
-            params.put("password", password);
+            params.put("password", md5Pwd);
             params.put("username",moblie);
 
             int addUser = userService.addUser(params);
@@ -135,6 +144,7 @@ public class UserController extends BaseController{
             resp.setMessage("用户注册成功");
             return resp;
         }catch (Exception e){
+            logger.error("User Error:",e);
             e.printStackTrace();
             resp.setCode(StatusCode.CODE_SERVER_ERROR);
             resp.setMessage("服务器错误");
@@ -175,6 +185,7 @@ public class UserController extends BaseController{
             return resp;
 
         }catch (Exception e){
+            logger.error("Error:",e);
             e.printStackTrace();
             resp.setCode(StatusCode.CODE_SERVER_ERROR);
             resp.setMessage("服务器错误");
@@ -197,9 +208,10 @@ public class UserController extends BaseController{
                 return resp;
             }
 
+            String md5Pwd = MD5Util.MD5EncodeUtf8(password);
             Map<Object, Object> params = new HashMap<>();
             params.put("phone", mobile);
-            params.put("password", password);
+            params.put("password", md5Pwd);
 
             int restPwd = userService.resetPwd(params);
 
@@ -214,6 +226,7 @@ public class UserController extends BaseController{
             return resp;
 
         }catch (Exception e){
+            logger.error("Error:",e);
             e.printStackTrace();
             resp.setCode(StatusCode.CODE_SERVER_ERROR);
             resp.setMessage("服务器错误");
@@ -252,6 +265,7 @@ public class UserController extends BaseController{
             resp.setData(user);
             return resp;
         }catch (Exception e){
+            logger.error("Error:",e);
             e.printStackTrace();
             resp.setCode(StatusCode.CODE_SERVER_ERROR);
             resp.setMessage("服务器错误");
@@ -301,6 +315,7 @@ public class UserController extends BaseController{
                 System.out.println("插入登录消息失败");
             }
         } catch (Exception e) {
+            logger.error("Error:",e);
             e.printStackTrace();
         }
     }

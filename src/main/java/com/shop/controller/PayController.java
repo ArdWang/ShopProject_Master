@@ -5,6 +5,8 @@ import com.shop.domain.pay.GetSignReq;
 import com.shop.utils.pay.PaySignUtils;
 import com.shop.utils.util.StatusCode;
 import com.shop.utils.util.YuanFenConverter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +16,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping(produces = {"application/json; charset=UTF-8"}, value = {"/pay"})
 public class PayController extends BaseController {
+
+    private static final Logger logger = LoggerFactory.getLogger(PayController.class);
+
     @RequestMapping(value = {"/getPaySign"}, method = {RequestMethod.POST})
     @ResponseBody
     public BaseResp<String> getPaySign(@RequestBody GetSignReq req) {
@@ -37,6 +42,7 @@ public class PayController extends BaseController {
             return resp;
 
         } catch (Exception e) {
+            logger.error("Error",e);
             e.printStackTrace();
             resp.setCode(StatusCode.CODE_SERVER_ERROR);
             resp.setMessage("服务器错误");

@@ -1,22 +1,22 @@
 package com.shop.domain.msg;
 
 public class GetMsgReq {
-    public Integer getPageIndex() {
+    public String getPageIndex() {
         return pageIndex;
     }
 
-    public void setPageIndex(Integer pageIndex) {
+    public void setPageIndex(String pageIndex) {
         this.pageIndex = pageIndex;
     }
 
-    public Integer getPageSize() {
+    public String getPageSize() {
         return pageSize;
     }
 
-    public void setPageSize(Integer pageSize) {
+    public void setPageSize(String pageSize) {
         this.pageSize = pageSize;
     }
 
-    private Integer pageIndex;
-    private Integer pageSize;
+    private String pageIndex;
+    private String pageSize;
 }

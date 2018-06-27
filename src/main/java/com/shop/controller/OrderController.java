@@ -15,6 +15,8 @@ import com.shop.service.UserService;
 import com.shop.domain.BaseResp;
 import com.shop.utils.push.PushSender;
 import com.shop.utils.util.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,6 +42,8 @@ public class OrderController extends BaseController{
     @Autowired
     private UserService userService;
 
+    private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
+
     /**
      * 根据订单状态获取状态
      */
@@ -49,7 +53,13 @@ public class OrderController extends BaseController{
         OrderResp resp = new OrderResp();
         try {
             List<Orders> ordersList;
-            int userId = Integer.parseInt(request.getHeader("token"));
+            String userData = request.getHeader("token");
+            if(userData.isEmpty()){
+                resp.setCode(StatusCode.CODE_ERROR);
+                resp.setMessage("用户token不能为空");
+                return resp;
+            }
+            int userId = Integer.parseInt(userData);
             int orderStatus = req.getOrderStatus();
             if (orderStatus == 0) {
                 ordersList = orderService.getOrderListAll(userId, orderStatus);
@@ -69,6 +79,7 @@ public class OrderController extends BaseController{
             resp.setOrders(ordersList);
             return resp;
         }catch (Exception e){
+            logger.error("Error",e);
             e.printStackTrace();
             resp.setCode(StatusCode.CODE_SERVER_ERROR);
             resp.setMessage("服务器错误");
@@ -87,7 +98,13 @@ public class OrderController extends BaseController{
         BaseResp resp  = new BaseResp();
         try {
             //得到UserId
-            int userId = Integer.parseInt(request.getHeader("token"));
+            String userData = request.getHeader("token");
+            if(userData.isEmpty()){
+                resp.setCode(StatusCode.CODE_ERROR);
+                resp.setMessage("用户token不能为空");
+                return resp;
+            }
+            int userId = Integer.parseInt(userData);
             int orderId = req.getOrderId();
 
             if(userId==0||orderId==0){
@@ -114,6 +131,7 @@ public class OrderController extends BaseController{
             return resp;
 
         }catch (Exception e){
+            logger.error("Error",e);
             e.printStackTrace();
             resp.setCode(StatusCode.CODE_SERVER_ERROR);
             resp.setMessage("服务器错误");
@@ -130,7 +148,13 @@ public class OrderController extends BaseController{
         BaseResp resp = new BaseResp();
         try{
             //得到UserId
-            int userId = Integer.parseInt(request.getHeader("token"));
+            String userData = request.getHeader("token");
+            if(userData.isEmpty()){
+                resp.setCode(StatusCode.CODE_ERROR);
+                resp.setMessage("用户token不能为空");
+                return resp;
+            }
+            int userId = Integer.parseInt(userData);
 
             OrderInfo orderInfo = new OrderInfo();
 
@@ -171,6 +195,7 @@ public class OrderController extends BaseController{
             return resp;
 
         }catch (Exception e){
+            logger.error("Error",e);
             e.printStackTrace();
             resp.setCode(StatusCode.CODE_SERVER_ERROR);
             resp.setMessage("服务器错误");
@@ -186,7 +211,14 @@ public class OrderController extends BaseController{
     public BaseResp confirmOrder(@RequestBody ConfrimOrderReq req){
         BaseResp resp = new BaseResp();
         try {
-            int userId = Integer.parseInt(request.getHeader("token"));
+            String userData = request.getHeader("token");
+            if(userData.isEmpty()){
+                resp.setCode(StatusCode.CODE_ERROR);
+                resp.setMessage("用户token不能为空");
+                return resp;
+            }
+            int userId = Integer.parseInt(userData);
+
             int orderId = req.getOrderId();
 
             Map<Object,Object> params = new HashMap<>();
@@ -210,6 +242,7 @@ public class OrderController extends BaseController{
             return resp;
 
         }catch (Exception e){
+            logger.error("Error",e);
             e.printStackTrace();
             resp.setCode(StatusCode.CODE_SERVER_ERROR);
             resp.setMessage("服务器错误");
@@ -222,7 +255,14 @@ public class OrderController extends BaseController{
     public BaseResp payOrder(@RequestBody PayOrderReq req){
         BaseResp resp = new BaseResp();
         try{
-            int userId = Integer.parseInt(request.getHeader("token"));
+            String userData = request.getHeader("token");
+            if(userData.isEmpty()){
+                resp.setCode(StatusCode.CODE_ERROR);
+                resp.setMessage("用户token不能为空");
+                return resp;
+            }
+            int userId = Integer.parseInt(userData);
+
             int orderId = req.getOrderId();
             Map<Object,Object> params = new HashMap<>();
 
@@ -245,6 +285,7 @@ public class OrderController extends BaseController{
             return resp;
 
         }catch (Exception e){
+            logger.error("Error",e);
             e.printStackTrace();
             resp.setCode(StatusCode.CODE_SERVER_ERROR);
             resp.setMessage("服务器错误");
@@ -260,7 +301,14 @@ public class OrderController extends BaseController{
     public BaseResp cancelOrder(@RequestBody CancelOrderReq req){
         BaseResp resp = new BaseResp();
         try {
-            int userId = Integer.parseInt(request.getHeader("token"));
+            String userData = request.getHeader("token");
+            if(userData.isEmpty()){
+                resp.setCode(StatusCode.CODE_ERROR);
+                resp.setMessage("用户token不能为空");
+                return resp;
+            }
+            int userId = Integer.parseInt(userData);
+
             int orderId = req.getOrderId();
 
             Map<Object,Object> params = new HashMap<>();
@@ -284,6 +332,7 @@ public class OrderController extends BaseController{
             return resp;
 
         }catch (Exception e){
+            logger.error("Error",e);
             e.printStackTrace();
             resp.setCode(StatusCode.CODE_SERVER_ERROR);
             resp.setMessage("服务器错误");
@@ -333,6 +382,7 @@ public class OrderController extends BaseController{
                 System.out.println("插入登录消息失败");
             }
         } catch (Exception e) {
+            logger.error("Error",e);
             e.printStackTrace();
         }
     }

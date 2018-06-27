@@ -8,6 +8,8 @@ import com.shop.domain.goods.GetGoodsKeyWordReq;
 import com.shop.model.goods.GoodsInfo;
 import com.shop.service.GoodsService;
 import com.shop.utils.util.StatusCode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,6 +26,8 @@ public class GoodsController extends BaseController{
 
     @Autowired
     private GoodsService goodsService;
+
+    private static final Logger logger = LoggerFactory.getLogger(GoodsController.class);
 
     @RequestMapping(value = {"/getGoodsInfo"}, method = {RequestMethod.POST})
     @ResponseBody
@@ -55,6 +59,7 @@ public class GoodsController extends BaseController{
             return resp;
 
         }catch (Exception e){
+            logger.error("Error",e);
             e.printStackTrace();
             resp.setCode(StatusCode.CODE_SERVER_ERROR);
             resp.setMessage("服务器错误");
@@ -93,6 +98,7 @@ public class GoodsController extends BaseController{
             return resp;
 
         }catch (Exception e){
+            logger.error("Error",e);
             e.printStackTrace();
             resp.setCode(StatusCode.CODE_SERVER_ERROR);
             resp.setMessage("服务器错误");
@@ -122,6 +128,7 @@ public class GoodsController extends BaseController{
             return resp;
 
         }catch (Exception e){
+            logger.error("Error",e);
             e.printStackTrace();
             resp.setCode(StatusCode.CODE_SERVER_ERROR);
             resp.setMessage("服务器错误");

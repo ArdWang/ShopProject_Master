@@ -9,6 +9,8 @@ import com.shop.model.msg.MsgInfo;
 import com.shop.model.msg.MsgInfoResp;
 import com.shop.service.MsgService;
 import com.shop.utils.util.StatusCode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,13 +28,15 @@ public class MsgController extends BaseController{
     @Autowired
     private MsgService msgService;
 
+    private static final Logger logger = LoggerFactory.getLogger(MsgController.class);
+
     @RequestMapping(value = {"/getMessage"}, method = {RequestMethod.POST,RequestMethod.GET})
     @ResponseBody
     public MsgInfoResp getMessage(@RequestBody GetMsgReq req){
         MsgInfoResp resp = new MsgInfoResp();
         try{
-            int pageIndex = req.getPageIndex();
-            int pageSize = req.getPageSize();
+            int pageIndex = Integer.parseInt(req.getPageIndex());
+            int pageSize = Integer.parseInt(req.getPageSize());
             int userId = Integer.parseInt(request.getHeader("token"));
 
             PageHelper.startPage(pageIndex,pageSize);
@@ -51,6 +55,7 @@ public class MsgController extends BaseController{
             return resp;
 
         }catch (Exception e){
+            logger.error("Error",e);
             e.printStackTrace();
             resp.setCode(StatusCode.CODE_SERVER_ERROR);
             resp.setMessage("服务器错误");
@@ -63,8 +68,14 @@ public class MsgController extends BaseController{
     @ResponseBody
     public BaseResp updateMessage(@RequestBody UpdateMsgReq req){
         BaseResp resp = new BaseResp();
-        try{
-            int userId = Integer.parseInt(request.getHeader("token"));
+        try{String userData = request.getHeader("token");
+            if(userData.isEmpty()){
+                resp.setCode(StatusCode.CODE_ERROR);
+                resp.setMessage("用户token不能为空");
+                return resp;
+            }
+            int userId = Integer.parseInt(userData);
+
             int msgId = req.getMsgId();
             int msgRead = req.getMsgRead();
 
@@ -86,6 +97,7 @@ public class MsgController extends BaseController{
             return resp;
 
         }catch (Exception e){
+            logger.error("Error",e);
             e.printStackTrace();
             resp.setCode(StatusCode.CODE_SERVER_ERROR);
             resp.setMessage("服务器错误");
@@ -99,7 +111,14 @@ public class MsgController extends BaseController{
     public BaseResp deleteMessage(@RequestBody com.shop.domain.domain.msg.DeleteMsgReq req){
         BaseResp resp = new BaseResp();
         try{
-            int userId = Integer.parseInt(request.getHeader("token"));
+            String userData = request.getHeader("token");
+            if(userData.isEmpty()){
+                resp.setCode(StatusCode.CODE_ERROR);
+                resp.setMessage("用户token不能为空");
+                return resp;
+            }
+            int userId = Integer.parseInt(userData);
+
             int msgId = req.getMsgId();
 
             Map<Object,Object> params = new HashMap<>();
@@ -121,6 +140,7 @@ public class MsgController extends BaseController{
 
 
         }catch (Exception e){
+            logger.error("Error",e);
             e.printStackTrace();
             resp.setCode(StatusCode.CODE_SERVER_ERROR);
             resp.setMessage("服务器错误");

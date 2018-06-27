@@ -9,6 +9,8 @@ import com.shop.domain.ship.ShipAddreResp;
 import com.shop.model.ship.ShipAddre;
 import com.shop.service.ShipService;
 import com.shop.utils.util.StatusCode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,13 +27,24 @@ public class ShipController extends BaseController{
     @Autowired
     private ShipService shipService;
 
+    private static final Logger logger = LoggerFactory.getLogger(ShipController.class);
+
 
     @RequestMapping(value = {"/getShipList"}, method = {RequestMethod.POST,RequestMethod.GET})
     @ResponseBody
     public ShipAddreResp getShipAddre(){
         ShipAddreResp resp = new ShipAddreResp();
         try{
-            int userId = Integer.parseInt(request.getHeader("token"));
+
+            String userData = request.getHeader("token");
+            if(userData.isEmpty()){
+                resp.setCode(StatusCode.CODE_ERROR);
+                resp.setMessage("用户token不能为空");
+                return resp;
+            }
+            int userId = Integer.parseInt(userData);
+
+
             List<ShipAddre> shipList = shipService.getAllShip(userId);
 
             if((shipList==null)||(shipList.size()==0)){
@@ -47,6 +60,7 @@ public class ShipController extends BaseController{
             return resp;
 
         }catch (Exception e){
+            logger.error("Error",e);
             e.printStackTrace();
             resp.setCode(StatusCode.CODE_SERVER_ERROR);
             resp.setMessage("服务器错误");
@@ -64,8 +78,13 @@ public class ShipController extends BaseController{
     public BaseResp addShipAddre(@RequestBody AddShipAddreReq req){
         BaseResp resp = new BaseResp();
         try{
-            //得到UserId
-            int userId = Integer.parseInt(request.getHeader("token"));
+            String userData = request.getHeader("token");
+            if(userData.isEmpty()){
+                resp.setCode(StatusCode.CODE_ERROR);
+                resp.setMessage("用户token不能为空");
+                return resp;
+            }
+            int userId = Integer.parseInt(userData);
             String shipName = req.getShipName();
             String shipPhone = req.getShipPhone();
             String shipAddre = req.getShipAddre();
@@ -104,6 +123,7 @@ public class ShipController extends BaseController{
 
 
         }catch (Exception e){
+            logger.error("Error",e);
             e.printStackTrace();
             resp.setCode(StatusCode.CODE_SERVER_ERROR);
             resp.setMessage("服务器错误");
@@ -119,7 +139,14 @@ public class ShipController extends BaseController{
     public BaseResp updateShip(@RequestBody EditShipAddreReq req){
         BaseResp resp = new BaseResp();
         try {
-            int userId = Integer.parseInt(request.getHeader("token"));
+            String userData = request.getHeader("token");
+            if(userData.isEmpty()){
+                resp.setCode(StatusCode.CODE_ERROR);
+                resp.setMessage("用户token不能为空");
+                return resp;
+            }
+            int userId = Integer.parseInt(userData);
+
             String shipName = req.getShipAddre().getShipusername();
             String shipPhone = req.getShipAddre().getShipusermobile();
             String shipAddre = req.getShipAddre().getShipaddress();
@@ -161,6 +188,7 @@ public class ShipController extends BaseController{
             return resp;
 
         }catch (Exception e){
+            logger.error("Error",e);
             e.printStackTrace();
             resp.setCode(StatusCode.CODE_SERVER_ERROR);
             resp.setMessage("服务器错误");
@@ -209,6 +237,7 @@ public class ShipController extends BaseController{
             return resp;
 
         }catch (Exception e){
+            logger.error("Error",e);
             e.printStackTrace();
             resp.setCode(StatusCode.CODE_SERVER_ERROR);
             resp.setMessage("服务器错误");

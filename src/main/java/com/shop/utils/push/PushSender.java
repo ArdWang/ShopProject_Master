@@ -11,8 +11,12 @@ import cn.jpush.api.push.model.PushPayload;
 import cn.jpush.api.push.model.audience.Audience;
 import cn.jpush.api.push.model.notification.AndroidNotification;
 import cn.jpush.api.push.model.notification.Notification;
+import com.shop.controller.UploadController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class PushSender {
+    private static final Logger logger = LoggerFactory.getLogger(PushSender.class);
     private static final String MASTER_SECRET = "e32076aa06330f146a2a7632";
     private static final String APP_KEY = "08cbeec1f4ef52aa1f790d42";
     private static JPushClient jpushClient = new JPushClient("e32076aa06330f146a2a7632", "08cbeec1f4ef52aa1f790d42", null, ClientConfig.getInstance());
@@ -21,8 +25,10 @@ public class PushSender {
         try {
             PushResult localPushResult = jpushClient.sendPush(buildLoginObject(pushId));
         } catch (APIConnectionException e) {
+            logger.error("Error",e);
             e.printStackTrace();
         } catch (APIRequestException e) {
+            logger.error("Error",e);
             e.printStackTrace();
         }
     }
@@ -43,8 +49,10 @@ public class PushSender {
         try {
             PushResult localPushResult = jpushClient.sendPush(buildOrderObject(pushId, orderId));
         } catch (APIConnectionException e) {
+            logger.error("Error",e);
             e.printStackTrace();
         } catch (APIRequestException e) {
+            logger.error("Error",e);
             e.printStackTrace();
         }
     }
